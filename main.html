@@ -10,32 +10,65 @@
   
   
   <body>
-  <button onclick="showMain()">PLAY</button>
-  <button onclick="document.write(yo testing, <br />)">LOGIN</button>
-  <button onclick="showLeaderboard()">LEADERBOARD</button>
-  <button onclick=alert("yes")>HELP</button>  
+    <div id="title">COIN FLIPPING</div>
+	<br>
+	
+	<div id="main">
+		<button id="mainPlay" onclick="showHide('play')">PLAY</button>
+		<br>
+		
+		<div id="play" style="display:none">
+			<br>
+		    <button id="playRegular" onclick="matchRegular">REGULAR MATCH</button>
+			<button id="playCreate" onclick="showPlay()">CREATE CUSTOM MATCH</button>
+			<button id="playJoin" onclick="showPlay()">JOIN CUSTOM MATCH</button>
+		</div>
+		<br>
+		
+		<button id="mainLogin" onclick="showHide('loginSub')">SIGN IN</button>
+		<br>
+		
+		<div id="loginSub" style="display:none">
+			<br>
+			Username: <input type="text" id="loginUsername" onclick="showPlay()"></input>
+			<br>
+			&nbsp;Password: <input type="text" id="loginPassword" onclick="showPlay()"></input>
+			<br>
+			<br>
+			<button id="loginLogin" onclick="showPlay()">LOGIN</button>
+			<button id="loginRegister" onclick="showPlay()">REGISTER</button>
+			<button id="loginBack" onclick="showPlay()">BACK</button>
+		</div>
+		<br>
+		
+		<button id="mainLeaderboard" onclick="showLeaderboard()">LEADERBOARD</button>
+		<br><br>
+		
+		
+		<button id="mainHelp" onclick=alert("yo")>HELP</button>
+	</div>
+	
     <script>
 	
-	document.write("yo testing", "<br />");
-	
-	function showMain() {
-    var x = document.getElementById("LOGIN");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-	
-	function showPlay() {
+	function showHide(id) {
+		var x = document.getElementById(id);
+		if (x.style.display == "none") {
+			x.style.display = "block";
+		} else {
+			x.style.display = "none";
+		}
+		
 	}
 	
-	function showLeaderboard() {
-	modal.style.display = "block";
-    modal.querySelector('.modal-body').innerHTML="<p>Wrong time</p>";
+	function showLogin() {
+			var y = document.getElementById("login");
+		if (y.style.display === "none") {
+			y.style.display = "block";
+		} else {
+			y.style.display = "none";
+		}
 	}
-}
+
     </script>
-	<button onclick="showLeaderboard()">LEADERBOARD</button>
-	<p> </p>
   </body>
 </html>
