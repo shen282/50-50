@@ -4,50 +4,99 @@
     <meta charset="utf-8">
 	<script src="Node.js"></script>
 	<!--<script src=".js"></script>-->
-    <title>Coin Flipping</title>
+    <title>Fifty-Fifty</title>
 	
+	<style>
+	.title {
+		font-family: Helvetica, Serif, Arial;
+		font-size: xx-large;
+	}
+	
+	.bigButton {
+		font-size: medium;
+	}
+	
+	.mainWindow {
+		border: 2 solid black;
+		background-color: white;
+		margin-left: auto;
+		margin-right: auto;
+		min-height:100%;
+	}
+	
+	img {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	</style>
   </head>
   
   
-  <body>
-    <div id="title">COIN FLIPPING</div>
-	<br>
+  <body style="min-height:100%;background-color:grey">
+   <div id="window" align="center" class="mainWindow"> <p>
+    <div id="titleMain" class="title" align="center"><b>FIFTY-FIFTY</b></div>
+	<div id="titleCustom" style="display:none" class="title" align="center"><b>CUSTOM GAME</b></div>
+	<div id="titleLeader" style="display:none" class="title" align="center"><b>LEADERBOARD</b></div>
+	<div id="titleHelp" style="display:none" class="title" align="center"><b>HELP</b></div>
+	<br> <img src="quarter.jpg" alt="Quarter" height="100" width="100"></img><br> <br> <br>
 	
-	<div id="main">
-		<button id="mainPlay" onclick="showHide('play')">PLAY</button>
+	<div id="main" align="center">
+		<button id="mainPlay" onclick="showHide('play')" class="bigButton"><b>PLAY!</b></button>
 		<br>
 		
 		<div id="play" style="display:none">
 			<br>
-		    <button id="playRegular" onclick="matchRegular">REGULAR MATCH</button>
-			<button id="playCreate" onclick="showPlay()">CREATE CUSTOM MATCH</button>
-			<button id="playJoin" onclick="showPlay()">JOIN CUSTOM MATCH</button>
+		    <button id="playRegular" onclick="matchRegular()">REGULAR MATCH</button>
+			<button id="playCreate" onclick="toggleCustom()">CREATE CUSTOM MATCH</button>
+			<button id="playJoin" onclick="showHide('join')">JOIN CUSTOM MATCH</button>
+			<div id="join" style="display:none"> <br> Match Key: <input type="text" id="joinKey"></input> <button onclick="tryJoin()">JOIN</button></div>
 		</div>
 		<br>
 		
-		<button id="mainLogin" onclick="showHide('loginSub')">SIGN IN</button>
+		<button id="mainLogin" onclick="showHide('login')" class="bigButton"><b>SIGN IN</b></button>
 		<br>
 		
-		<div id="loginSub" style="display:none">
+		<div id="login" style="display:none">
 			<br>
-			Username: <input type="text" id="loginUsername" onclick="showPlay()"></input>
+			Username: <input type="text" id="loginUsername"></input>
 			<br>
-			&nbsp;Password: <input type="text" id="loginPassword" onclick="showPlay()"></input>
+			&nbsp;Password: <input type="text" id="loginPassword"></input>
 			<br>
 			<br>
-			<button id="loginLogin" onclick="showPlay()">LOGIN</button>
-			<button id="loginRegister" onclick="showPlay()">REGISTER</button>
-			<button id="loginBack" onclick="showPlay()">BACK</button>
+			<button id="loginLogin" onclick="PLACEHOLDERPLACEHOLDER">LOGIN</button>
+			<button id="loginRegister" onclick="PLACEHOLDERPLACEHOLDER">REGISTER</button>
+			
 		</div>
 		<br>
 		
-		<button id="mainLeaderboard" onclick="showLeaderboard()">LEADERBOARD</button>
+		<button id="mainLeaderboard" onclick="toggleLeaderboard()" class="bigButton"><b>LEADERBOARD</b></button>
 		<br><br>
 		
+		<button id="mainHelp" onclick="toggleHelp()" class="bigButton"><b>HELP</b></button>
 		
-		<button id="mainHelp" onclick=alert("yo")>HELP</button>
 	</div>
 	
+	<div id="custom" style="display:none" align="center">
+		<br><br>
+		<input> </input>
+		<button id="customCreate" onclick="createGame()">CREATE</button>
+		<button id="customBack" onclick="toggleCustom()"><b>BACK</b></button>
+	</div>
+	
+	<div id="leaderboard" style="display:none" align="center">
+		filltext
+		<br><br>
+		<button id="leaderBack" onclick="toggleLeaderboard()" class="bigButton"><b>BACK</b></button>
+	</div>
+	
+	<div id="help" style="display:none" align="center">
+		Flip coins
+		<br><br>
+		<button id="helpBack" onclick="toggleHelp()" class="bigButton"><b>BACK</b></button>
+	</div>
+	<p>
+   </div>
     <script>
 	
 	function showHide(id) {
@@ -56,19 +105,63 @@
 			x.style.display = "block";
 		} else {
 			x.style.display = "none";
+			if (id == "main") {
+				hideSub();
+			}
 		}
 		
 	}
 	
-	function showLogin() {
-			var y = document.getElementById("login");
-		if (y.style.display === "none") {
-			y.style.display = "block";
+	function hideSub() {
+		var x = document.getElementById("play")
+		if (x.style.display == "block") {
+			x.style.display = "none";
+		}
+		x = document.getElementById("join")
+		if (x.style.display == "block") {
+			x.style.display = "none";
+		}
+		x = document.getElementById("login")
+		if (x.style.display == "block") {
+			x.style.display = "none";
+		}
+	}
+	
+	function toggleHelp() {
+		showHide("main");
+		showHide("help");
+		showHide("titleMain");
+		showHide("titleHelp");
+	}
+	
+	function toggleCustom() {
+		showHide("main");
+		showHide("custom");
+		showHide("titleMain");
+		showHide("titleCustom");
+	}
+	
+	function toggleLeaderboard() {
+		showHide("main");
+		showHide("leaderboard");
+		showHide("titleMain");
+		showHide("titleLeader");
+	}
+	
+	createGame
+	
+	function tryJoin(){
+		var x = document.getElementById("joinKey");
+		if (x.value == ""){
+			showHide("join");
 		} else {
-			y.style.display = "none";
+			
 		}
 	}
 
     </script>
+	<br>
+	<br>
+	<footer> <a href="https://github.com/shen282/50-50">Github</a> </footer>
   </body>
 </html>
