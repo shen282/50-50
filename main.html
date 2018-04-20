@@ -35,12 +35,15 @@
   
   <body style="min-height:100%;background-color:grey">
    <div id="window" align="center" class="mainWindow"> <p>
+    
+	<!-- Titles -->
     <div id="titleMain" class="title" align="center"><b>FIFTY-FIFTY</b></div>
 	<div id="titleCustom" style="display:none" class="title" align="center"><b>CUSTOM GAME</b></div>
 	<div id="titleLeader" style="display:none" class="title" align="center"><b>LEADERBOARD</b></div>
 	<div id="titleHelp" style="display:none" class="title" align="center"><b>HELP</b></div>
 	<br> <img src="quarter.jpg" alt="Quarter" height="100" width="100"></img><br> <br> <br>
 	
+	<!-- Main Menu Panel -->
 	<div id="main" align="center">
 		<button id="mainPlay" onclick="showHide('play')" class="bigButton"><b>PLAY!</b></button>
 		<br>
@@ -61,11 +64,11 @@
 			<br>
 			Username: <input type="text" id="loginUsername"></input>
 			<br>
-			&nbsp;Password: <input type="text" id="loginPassword"></input>
+			&nbsp; Password: <input type="text" id="loginPassword"></input>
 			<br>
 			<br>
-			<button id="loginLogin" onclick="PLACEHOLDERPLACEHOLDER">LOGIN</button>
-			<button id="loginRegister" onclick="PLACEHOLDERPLACEHOLDER">REGISTER</button>
+			<button id="loginLogin" onclick="sendLogin()">LOGIN</button>
+			<button id="loginRegister" onclick="sendRegister()">REGISTER</button>
 			
 		</div>
 		<br>
@@ -77,11 +80,29 @@
 		
 	</div>
 	
+	<!-- Other Screens -->
 	<div id="custom" style="display:none" align="center">
 		<br><br>
-		<input> </input>
-		<button id="customCreate" onclick="createGame()">CREATE</button>
-		<button id="customBack" onclick="toggleCustom()"><b>BACK</b></button>
+		
+		<form id="customSize">
+		<b>Number of Players:</b> <br>
+		2 <input type="radio" name="customSize" value="2" checked="true"> &nbsp;</input> 
+		3 <input type="radio" name="customSize" value="3"> &nbsp;</input>
+		4 <input type="radio" name="customSize" value="4"> &nbsp;</input>
+		5 <input type="radio" name="customSize" value="5"> &nbsp;</input>
+		6 <input type="radio" name="customSize" value="6"> </input>
+		</form> <br> <b>Match Type</b>: <br> <form id="customType">
+		1v1 Rotations <input type="radio" name="customType" value="1v1" checked="true"> &nbsp;</input>
+		Free for All <input type="radio" name="customType" value="ffa"> </input>
+		</form> <br> <b>Number of rounds needed to win:</b> <br> <form id="customSetCount">
+		1 <input type="radio" name="customSetCount" value="1"> &nbsp;</input>
+		2 <input type="radio" name="customSetCount" value="2" checked="true"> &nbsp;</input>
+		3 <input type="radio" name="customSetCount" value="3"> &nbsp;</input>
+		4 <input type="radio" name="customSetCount" value="4"> &nbsp;</input>
+		</form> <br> <br>
+		
+		<button id="customCreate" onclick="createGame()" class="bigButton"><b>CREATE</b></button>
+		<button id="customBack" onclick="toggleCustom()" class="bigButton"><b>BACK</b></button>
 	</div>
 	
 	<div id="leaderboard" style="display:none" align="center">
@@ -95,8 +116,9 @@
 		<br><br>
 		<button id="helpBack" onclick="toggleHelp()" class="bigButton"><b>BACK</b></button>
 	</div>
-	<p>
+	<br> <br> <br> <p>
    </div>
+   
     <script>
 	
 	function showHide(id) {
@@ -148,19 +170,42 @@
 		showHide("titleLeader");
 	}
 	
-	createGame
+	function createGame() {
+		var a = document.getElementById("customSize")
+		var b = document.getElementById("customType")
+		var c = document.getElementById("customSetCount")
+		for (i = "0"; i < a.elements.length; i++){
+			if (a.elements[i].checked){
+				a = a.elements[i].value;
+				break;
+			}
+		}
+		for (i = "0"; i < b.elements.length; i++){
+			if (b.elements[i].checked){
+				b = b.elements[i].value;
+				break;
+			}
+		}
+		for (i = "0"; i < c.elements.length; i++){
+			if (c.elements[i].checked){
+				c = c.elements[i].value;
+				break;
+			}
+		}
+		alert(a + " player lobby, " + b + " game, first to " + c)
+	}
 	
 	function tryJoin(){
 		var x = document.getElementById("joinKey");
 		if (x.value == ""){
-			showHide("join");
+			showError(joinNoKey);
 		} else {
+			var err = sendJoin();
 			
 		}
 	}
 
     </script>
-	<br>
 	<br>
 	<footer> <a href="https://github.com/shen282/50-50">Github</a> </footer>
   </body>
