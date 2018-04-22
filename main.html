@@ -2,20 +2,20 @@
 <html>
   <head>
     <meta charset="utf-8">
-	<script src="Node.js"></script>
+	<!--<script src="Node.js"></script>-->
 	<!--<script src=".js"></script>-->
     <title>Fifty-Fifty</title>
-	
+
 	<style>
 	.title {
 		font-family: Helvetica, Serif, Arial;
 		font-size: xx-large;
 	}
-	
+
 	.bigButton {
 		font-size: medium;
 	}
-	
+
 	.mainWindow {
 		border: 2 solid black;
 		background-color: white;
@@ -23,7 +23,7 @@
 		margin-right: auto;
 		min-height:100%;
 	}
-	
+
 	img {
 		display: block;
 		margin-left: auto;
@@ -31,23 +31,23 @@
 	}
 	</style>
   </head>
-  
-  
+
+
   <body style="min-height:100%;background-color:grey">
    <div id="window" align="center" class="mainWindow"> <p>
-    
+
 	<!-- Titles -->
     <div id="titleMain" class="title" align="center"><b>FIFTY-FIFTY</b></div>
 	<div id="titleCustom" style="display:none" class="title" align="center"><b>CUSTOM GAME</b></div>
 	<div id="titleLeader" style="display:none" class="title" align="center"><b>LEADERBOARD</b></div>
 	<div id="titleHelp" style="display:none" class="title" align="center"><b>HELP</b></div>
-	<br> <img src="quarter.jpg" alt="Quarter" height="100" width="100"></img><br> <br> <br>
-	
+	<br> <img src="Quarter.jpg" alt="Quarter" height="100" width="100"></img><br> <br> <br>
+
 	<!-- Main Menu Panel -->
 	<div id="main" align="center">
 		<button id="mainPlay" onclick="showHide('play')" class="bigButton"><b>PLAY!</b></button>
 		<br>
-		
+
 		<div id="play" style="display:none">
 			<br>
 		    <button id="playRegular" onclick="matchRegular()">REGULAR MATCH</button>
@@ -56,37 +56,42 @@
 			<div id="join" style="display:none"> <br> Match Key: <input type="text" id="joinKey"></input> <button onclick="tryJoin()">JOIN</button></div>
 		</div>
 		<br>
-		
+
 		<button id="mainLogin" onclick="showHide('login')" class="bigButton"><b>SIGN IN</b></button>
-		<br>
-		
+
+
+    <div id="loggedIn" style="display:none">
+        <h3 id="signInText">You are signed in</h3>
+        <button onclick="signOff()">SIGN OUT</button>
+    </div>
+
 		<div id="login" style="display:none">
 			<br>
 			Username: <input type="text" id="loginUsername"></input>
 			<br>
 			&nbsp; Password: <input type="text" id="loginPassword"></input>
 			<br>
-			<br>
+      <br>
 			<button id="loginLogin" onclick="sendLogin()">LOGIN</button>
 			<button id="loginRegister" onclick="sendRegister()">REGISTER</button>
-			
+
 		</div>
 		<br>
-		
+
 		<button id="mainLeaderboard" onclick="toggleLeaderboard()" class="bigButton"><b>LEADERBOARD</b></button>
 		<br><br>
-		
+
 		<button id="mainHelp" onclick="toggleHelp()" class="bigButton"><b>HELP</b></button>
-		
+
 	</div>
-	
+
 	<!-- Other Screens -->
 	<div id="custom" style="display:none" align="center">
 		<br><br>
-		
+
 		<form id="customSize">
 		<b>Number of Players:</b> <br>
-		2 <input type="radio" name="customSize" value="2" checked="true"> &nbsp;</input> 
+		2 <input type="radio" name="customSize" value="2" checked="true"> &nbsp;</input>
 		3 <input type="radio" name="customSize" value="3"> &nbsp;</input>
 		4 <input type="radio" name="customSize" value="4"> &nbsp;</input>
 		5 <input type="radio" name="customSize" value="5"> &nbsp;</input>
@@ -100,17 +105,17 @@
 		3 <input type="radio" name="customSetCount" value="3"> &nbsp;</input>
 		4 <input type="radio" name="customSetCount" value="4"> &nbsp;</input>
 		</form> <br> <br>
-		
+
 		<button id="customCreate" onclick="createGame()" class="bigButton"><b>CREATE</b></button>
 		<button id="customBack" onclick="toggleCustom()" class="bigButton"><b>BACK</b></button>
 	</div>
-	
+
 	<div id="leaderboard" style="display:none" align="center">
 		filltext
 		<br><br>
 		<button id="leaderBack" onclick="toggleLeaderboard()" class="bigButton"><b>BACK</b></button>
 	</div>
-	
+
 	<div id="help" style="display:none" align="center">
 		Flip coins
 		<br><br>
@@ -118,9 +123,26 @@
 	</div>
 	<br> <br> <br> <p>
    </div>
-   
+
+
+   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+   <script>
+     // Initialize Firebase
+     var config = {
+       apiKey: "AIzaSyCUrRiR8mphEmOtAyJW8qeZIPJc57ZufGc",
+       authDomain: "coinflip-3afe0.firebaseapp.com",
+       databaseURL: "https://coinflip-3afe0.firebaseio.com",
+       projectId: "coinflip-3afe0",
+       storageBucket: "coinflip-3afe0.appspot.com",
+       messagingSenderId: "841218528273"
+     };
+     firebase.initializeApp(config);
+   </script>
+
+    <script src="logger.js"></script>
+
     <script>
-	
+
 	function showHide(id) {
 		var x = document.getElementById(id);
 		if (x.style.display == "none") {
@@ -131,9 +153,9 @@
 				hideSub();
 			}
 		}
-		
+
 	}
-	
+
 	function hideSub() {
 		var x = document.getElementById("play")
 		if (x.style.display == "block") {
@@ -148,28 +170,29 @@
 			x.style.display = "none";
 		}
 	}
-	
+
+
 	function toggleHelp() {
 		showHide("main");
 		showHide("help");
 		showHide("titleMain");
 		showHide("titleHelp");
 	}
-	
+
 	function toggleCustom() {
 		showHide("main");
 		showHide("custom");
 		showHide("titleMain");
 		showHide("titleCustom");
 	}
-	
+
 	function toggleLeaderboard() {
 		showHide("main");
 		showHide("leaderboard");
 		showHide("titleMain");
 		showHide("titleLeader");
 	}
-	
+
 	function createGame() {
 		var a = document.getElementById("customSize")
 		var b = document.getElementById("customType")
@@ -194,17 +217,16 @@
 		}
 		alert(a + " player lobby, " + b + " game, first to " + c)
 	}
-	
+
 	function tryJoin(){
 		var x = document.getElementById("joinKey");
 		if (x.value == ""){
 			showError(joinNoKey);
 		} else {
 			var err = sendJoin();
-			
+
 		}
 	}
-
     </script>
 	<br>
 	<footer> <a href="https://github.com/shen282/50-50">Github</a> </footer>
