@@ -1,14 +1,18 @@
 var http = require('http');
 var fs = require('fs');
-
+var myReadStream;
 var serve = http.createServer(function(req, resp){
-  if(req.url == '/'){
-    req.url = '/main.html'
-  }
   console.log('request made '+ req.url);
-  resp.writeHead(200, {'Content-Type': 'text/html'});
-  var myReadStream = fs.createReadStream(__dirname + '/main.html', 'utf8');
-  myReadStream.pipe(resp);
+  if(req.url == '/'){
+    req.url = '/main.html';
+  }
+    if(!fs.existsSync(__dirname + req.url)){
+      req.url = '/notfound.html';
+    }
+    myReadStream = fs.createReadStream(__dirname + req.url, 'utf8');
+    resp.writeHead(200, {'Content-Type': 'text/html'});
+    myReadStream.pipe(resp);
+
 });
 
 serve.listen(2050, '127.0.0.1');
