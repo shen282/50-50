@@ -1,6 +1,9 @@
 var http = require('http');
 var fs = require('fs');
+var path = require('path');
 var myReadStream;
+var image;
+
 var serve = http.createServer(function(req, resp){
   console.log('request made '+ req.url);
   if(req.url == '/'){
@@ -9,9 +12,18 @@ var serve = http.createServer(function(req, resp){
     if(!fs.existsSync(__dirname + req.url)){
       req.url = '/notfound.html';
     }
-    myReadStream = fs.createReadStream(__dirname + req.url, 'utf8');
-    resp.writeHead(200, {'Content-Type': 'text/html'});
+    if(path.extname(req.url) == '.html'){
+      myReadStream = fs.createReadStream(__dirname + req.url, 'utf8');
+      resp.writeHead(200, {'Content-Type': 'text/html'});
+    }
+    if(path.extname(req.url) == '.jpg' || path.extname(req.url) == '.png'){
+      image = fs.readFileSync(__dirname + req.url);
+      resp.writeHead(200, {'Content-Type': 'image/gif'});
+      resp.end(image, 'binary');
+    }
     myReadStream.pipe(resp);
+
+
 
 });
 
