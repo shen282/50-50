@@ -1,0 +1,39 @@
+<!doctype html>
+  <html>
+    <style>
+      .button {
+        background-color: #FFFFFF;
+        color: #000000;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 10px;
+      }
+      .big-btn{
+        width: 90px;
+        height: 40px;
+      }
+    </style>
+    <center><h1>Flip a coin and guess the side it lands on</h1></center>
+      <br>
+      <div>
+        <center>
+        <img id="headCoin" src="heads.jpg" onclick="flipCoin()"/>
+        <img id="tailCoin" src="tails.jpg" onclick="flipCoin()"style="display:none">
+        </center>
+      </div>
+      <br>
+      <div>
+        <center>
+        <button type="button" style="padding:10px;width:90px;height:40px;" onclick="pickHeads()">Heads</button>
+        &nbsp;&nbsp;&nbsp;
+        <button type="button" style="padding:10px;width:90px;height:40px;" onclick="pickTails()">Tails</button>
+        </center>
+      </div>
+      <br>
+      <center>
+        <h3 id="guessText" style="display:none"> Your current guess is ..</h3>
+      </center>
+
+      <script src="AI.js"></script>
+
+  </html>
