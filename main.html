@@ -14,6 +14,9 @@
 
 	.bigButton {
 		font-size: medium;
+		padding:10px;
+		width:150px;
+		height:50px
 	}
 
 	.mainWindow {
@@ -53,7 +56,7 @@
 		    <button id="playRegular" onclick="matchRegular()">REGULAR MATCH</button>
 			<button id="playCreate" onclick="toggleCustom()">CREATE CUSTOM MATCH</button>
 			<button id="playJoin" onclick="showHide('join')">JOIN CUSTOM MATCH</button>
-			<div id="join" style="display:none"> <br> Match Key: <input type="text" id="joinKey"></input> <button onclick="tryJoin()">JOIN</button></div>
+			<div id="join" style="display:none"> <br> Match Key: <input type="text" id="joinKey"></input> <button onclick="gameJoin()">JOIN</button></div>
 		</div>
 		<br>
 
@@ -218,7 +221,7 @@
 		alert(a + " player lobby, " + b + " game, first to " + c)
 	}
 
-	function tryJoin(){
+	function gameJoin(){
 		var x = document.getElementById("joinKey");
 		if (x.value == ""){
 			showError(joinNoKey);
