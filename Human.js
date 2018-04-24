@@ -15,7 +15,7 @@ function ready(){
     return;
   }
   
-  readyState=1;
+  stopTimer();
   sendReady();
 }
 
@@ -25,18 +25,17 @@ function handle() {
   }else{
     showTails(); //show tails side of the coin if tails
   }
-
-  //determine winner; AI always guesses HEADS
+  
   //winner is chosen when one person guesses correctly and the other guesses incorrectly, if both are wrong/right they guess again;
 
-  if(x==guess && y==1){ //both guess correctly
+  if(outcome == 1){ //both guess correctly
     document.getElementById("guessText").style.display="block";
     document.getElementById("guessText").innerHTML="You guessed correctly, but your opponent did too. Guess again";
 	reset();
-  }else if(x==guess && y==0){ //user guesses correctly AI does not
+  }else if(outcome == 2){ //user guesses correctly opponent does not
     window.location.href="youWin.html";
 	stopTimer();
-  }else if(x != guess && y==1){ //user guesses incorrectly AI does not
+  }else if(outcome == 3){ //user guesses incorrectly opponent does not
     window.location.href="youLose.html";
 	stopTimer();
   }else{ //neither guess correctly
@@ -69,6 +68,7 @@ function pickHeads(){
   document.getElementById("guessText").style.display="block";
   document.getElementById("guessText").innerHTML="Your current guess is HEADS";
   guess=1;
+  readyState=1;
 }
 
 //user guesses tails, set guess=0;
@@ -76,6 +76,7 @@ function pickTails(){
   document.getElementById("guessText").style.display="block";
   document.getElementById("guessText").innerHTML="Your current guess is TAILS";
   guess=0;
+  readyState=1;
 }
 
 function reset(){
@@ -88,24 +89,33 @@ function sendReady(){
 	
 }
 
-var turnTimer = new Date().getTime()+15000;
+var turnTimer = new Date().getTime()+16000;
+resetTimer();
 	  
-	  var x = setInterval(function() {
+	  
+function resetTimer(){
+	turnTimer = new Date().getTime()+16000;
+	var timerObject = document.getElementById("timer");
+	var x = setInterval(function() {
 	  
 		var currentTime = new Date().getTime()
 		var distance = turnTimer - currentTime;
 		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-		document.getElementById("timer").innerHTML = seconds + "s ";
-	  
-	    if (distance < 0) {
+		if (distance > 6000) {
+			timerObject.style.fontSize = "large";
+	    }
+		else {
+			timerObject.style.fontSize = "xx-large";
+		}
+		timerObject.innerHTML = seconds + "s ";
+	    if (distance < 1000) {
 			clearInterval(x);
-			document.getElementById("timer").innerHTML = "TIME UP";
-			forfeit();
+			timerObject.innerHTML = "TIME UP";
+			if (readyState == "0"){
+				forfeit();
+			}
 	    }		
 	  });
-	  
-function resetTimer(){
-	turnTimer = new Date().getTime()+15000;
 }
 	  
 function stopTimer(){
