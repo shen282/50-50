@@ -1,27 +1,30 @@
 var guess=100;
 //1 = heads, 0 = tails
+var readyState=0;
+//1 = Ready, 0 = Not ready
 
-function playAi(){
+function playHuman(){
   //redirect to gameGUI
-  window.location.href="basicGame.html";
+  window.location.href="basicMatch.html";
 }
 
-function flipCoin(){
+function ready(){
   //flips coin, if the user has not guessed, request they guess first
   if(guess==100){
     guessPls();
     return;
   }
+  
+  readyState=1;
+  sendReady();
+}
 
-  var x=(Math.floor(Math.random() * 2) == 0); //randomly generates number as 1 or 0, 1=heads 0=tails
-
+function handle() {
   if(x){
     showHeads(); //show head side of the coin if heads
   }else{
     showTails(); //show tails side of the coin if tails
   }
-
-  var y=(Math.floor(Math.random() * 2) == 0); //randomly generates AI's coin
 
   //determine winner; AI always guesses HEADS
   //winner is chosen when one person guesses correctly and the other guesses incorrectly, if both are wrong/right they guess again;
@@ -29,15 +32,17 @@ function flipCoin(){
   if(x==guess && y==1){ //both guess correctly
     document.getElementById("guessText").style.display="block";
     document.getElementById("guessText").innerHTML="You guessed correctly, but your opponent did too. Guess again";
-	guess=100;
+	reset();
   }else if(x==guess && y==0){ //user guesses correctly AI does not
     window.location.href="youWin.html";
+	stopTimer();
   }else if(x != guess && y==1){ //user guesses incorrectly AI does not
     window.location.href="youLose.html";
+	stopTimer();
   }else{ //neither guess correctly
     document.getElementById("guessText").style.display="block";
     document.getElementById("guessText").innerHTML="Neither of you guessed correctly. Guess again";
-	guess=100;
+	reset();
   }
 }
 
@@ -71,4 +76,43 @@ function pickTails(){
   document.getElementById("guessText").style.display="block";
   document.getElementById("guessText").innerHTML="Your current guess is TAILS";
   guess=0;
+}
+
+function reset(){
+	guess=100;
+	readyState=0;
+	resetTimer();
+}
+
+function sendReady(){
+	
+}
+
+var turnTimer = new Date().getTime()+15000;
+	  
+	  var x = setInterval(function() {
+	  
+		var currentTime = new Date().getTime()
+		var distance = turnTimer - currentTime;
+		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		document.getElementById("timer").innerHTML = seconds + "s ";
+	  
+	    if (distance < 0) {
+			clearInterval(x);
+			document.getElementById("timer").innerHTML = "TIME UP";
+			forfeit();
+	    }		
+	  });
+	  
+function resetTimer(){
+	turnTimer = new Date().getTime()+15000;
+}
+	  
+function stopTimer(){
+	clearInterval(x);
+}
+
+function forfeit(){
+	alert("You ran out of time!");
+	window.location.href="main.html"
 }
