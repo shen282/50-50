@@ -46,7 +46,7 @@
 	<div id="titleCustom" style="display:none" class="title" align="center"><b>CUSTOM GAME</b></div>
 	<div id="titleLeader" style="display:none" class="title" align="center"><b>LEADERBOARD</b></div>
 	<div id="titleHelp" style="display:none" class="title" align="center"><b>HELP</b></div>
-	<br> <img src="Quarter.jpg" alt="Quarter" height="100" width="100"></img><br> <br>
+	<br> <img src="Quarter.jpg" alt="Quarter" height="100" width="100"><br> <br>
 
 	<!-- Main Menu Panel -->
 	<div id="main" align="center">
@@ -58,7 +58,7 @@
 		    <button id="playRegular" onclick="playHuman()">REGULAR MATCH</button>
 			<button id="playCreate" onclick="toggleCustom()">CREATE CUSTOM MATCH</button>
 			<button id="playJoin" onclick="showHide('join')">JOIN CUSTOM MATCH</button>   
-			<div id="join" style="display:none"> <br> Match Key: <input type="text" id="joinKey"></input> <button onclick="gameJoin()">JOIN</button></div>
+			<div id="join" style="display:none"> <br> Match Key: <input type="text" id="joinKey"> <button onclick="gameJoin()">JOIN</button></div>
 		</div>
 		
 		<br>
@@ -75,9 +75,9 @@
 
 		<div id="login" style="display:none">
 			<br>
-			Username: <input type="text" id="loginUsername"></input>
+			Username: <input type="text" id="loginUsername">
 			<br>
-			&nbsp; Password: <input type="password" id="loginPassword"></input>
+			&nbsp; Password: <input type="password" id="loginPassword">
 			<br>
       <br>
 			<button id="loginLogin" onclick="sendLogin()">LOGIN</button>
@@ -100,19 +100,19 @@
 
 		<form id="customSize">
 		<b>Number of Players:</b> <br>
-		2 <input type="radio" name="customSize" value="2" checked="true"> &nbsp;</input>
-		3 <input type="radio" name="customSize" value="3"> &nbsp;</input>
-		4 <input type="radio" name="customSize" value="4"> &nbsp;</input>
-		5 <input type="radio" name="customSize" value="5"> &nbsp;</input>
-		6 <input type="radio" name="customSize" value="6"> </input>
+		2 <input type="radio" name="customSize" value="2" checked="true"> &nbsp;
+		3 <input type="radio" name="customSize" value="3"> &nbsp;
+		4 <input type="radio" name="customSize" value="4"> &nbsp;
+		5 <input type="radio" name="customSize" value="5"> &nbsp;
+		6 <input type="radio" name="customSize" value="6"> 
 		</form> <br> <b>Match Type</b>: <br> <form id="customType">
-		1v1 Rotations <input type="radio" name="customType" value="1v1" checked="true"> &nbsp;</input>
-		Free for All <input type="radio" name="customType" value="ffa"> </input>
+		1v1 Rotations <input type="radio" name="customType" value="1v1" checked="true"> &nbsp;
+		Free for All <input type="radio" name="customType" value="ffa"> 
 		</form> <br> <b>Number of rounds needed to win:</b> <br> <form id="customSetCount">
-		1 <input type="radio" name="customSetCount" value="1"> &nbsp;</input>
-		2 <input type="radio" name="customSetCount" value="2" checked="true"> &nbsp;</input>
-		3 <input type="radio" name="customSetCount" value="3"> &nbsp;</input>
-		4 <input type="radio" name="customSetCount" value="4"> &nbsp;</input>
+		1 <input type="radio" name="customSetCount" value="1"> &nbsp;
+		2 <input type="radio" name="customSetCount" value="2" checked="true"> &nbsp;
+		3 <input type="radio" name="customSetCount" value="3"> &nbsp;
+		4 <input type="radio" name="customSetCount" value="4"> &nbsp;
 		</form> <br> <br>
 
 		<button id="customCreate" onclick="gameCreate()" class="bigButton"><b>CREATE</b></button>
@@ -152,7 +152,7 @@
     <script src="logger.js"></script>
     <script src="AI.js"></script>
     <script src="leaderboard.js"></script>
-	<script src="Human.js"></script>
+	<script src="redirect.js"></script>
 
     <script>
 

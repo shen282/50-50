@@ -1,7 +1,7 @@
 function playAgainAi(){
   window.location.href="basicGame.html";
 }
-function playMatch() {
+function playHuman() {
   window.location.href="basicMatch.html";
 }
 function goHome(){

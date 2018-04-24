@@ -92,13 +92,14 @@ function reset(){
 }*/
 
 var turnTimer = new Date().getTime()+16000;
+var t;
 resetTimer();
 	  
 	  
 function resetTimer(){
 	turnTimer = new Date().getTime()+16000;
 	var timerObject = document.getElementById("timer");
-	var t = setInterval(function() {
+	t = setInterval(function() {
 	  
 		var currentTime = new Date().getTime()
 		var distance = turnTimer - currentTime;
@@ -129,6 +130,7 @@ function stopTimer(){
 function forfeit(){
 	//tell the server it was a forfeit
 	alert("You ran out of time!");
+	stopTimer();
 	window.location.href="main.html"
 }
 /*
