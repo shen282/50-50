@@ -14,9 +14,6 @@
 
 	.bigButton {
 		font-size: medium;
-		padding:10px;
-		width:150px;
-		height:50px;
 	}
 
 	.mainWindow {
@@ -26,11 +23,20 @@
 		margin-right: auto;
 		min-height:100%;
 	}
+  .button {
+    background-color: #FFFFFF;
+    color: #000000;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+  }
+  .big-btn{
+    width: 90px;
+    height: 40px;
+  }
 
 	img {
 		display: block;
-		width:12%;
-		height:12%;
 		margin-left: auto;
 		margin-right: auto;
 	}
@@ -46,7 +52,7 @@
 	<div id="titleCustom" style="display:none" class="title" align="center"><b>CUSTOM GAME</b></div>
 	<div id="titleLeader" style="display:none" class="title" align="center"><b>LEADERBOARD</b></div>
 	<div id="titleHelp" style="display:none" class="title" align="center"><b>HELP</b></div>
-	<br> <img src="Quarter.jpg" alt="Quarter" height="100" width="100"><br> <br>
+	<br> <img id="quarterIMG" src="Quarter.jpg" alt="Quarter" height="100" width="100"></img><br> <br> <br>
 
 	<!-- Main Menu Panel -->
 	<div id="main" align="center">
@@ -55,16 +61,14 @@
 
 		<div id="play" style="display:none">
 			<br>
-		    <button id="playRegular" onclick="playHuman()">REGULAR MATCH</button>
+		    <button id="playRegular" onclick="matchRegular()">REGULAR MATCH</button>
 			<button id="playCreate" onclick="toggleCustom()">CREATE CUSTOM MATCH</button>
-			<button id="playJoin" onclick="showHide('join')">JOIN CUSTOM MATCH</button>   
-			<div id="join" style="display:none"> <br> Match Key: <input type="text" id="joinKey"> <button onclick="gameJoin()">JOIN</button></div>
+			<button id="playJoin" onclick="showHide('join')">JOIN CUSTOM MATCH</button>
+      <button id="playAI" onclick="toggleGame()">PLAY AI</button>
+			<div id="join" style="display:none"> <br> Match Key: <input type="text" id="joinKey"></input> <button onclick="tryJoin()">JOIN</button></div>
 		</div>
-		
 		<br>
-		<button id="playAI" onclick="playAi()" class="bigButton"><b>PRACTICE</b></button>
-		
-		<br> <br>
+
 		<button id="mainLogin" onclick="showHide('login')" class="bigButton"><b>SIGN IN</b></button>
 
 
@@ -75,11 +79,11 @@
 
 		<div id="login" style="display:none">
 			<br>
-			Username: <input type="text" id="loginUsername">
+			Username: <input type="text" id="loginUsername"></input>
 			<br>
-			&nbsp; Password: <input type="password" id="loginPassword">
+			&nbsp; Password: <input type="password" id="loginPassword"></input>
 			<br>
-        <br>
+      <br>
 			<button id="loginLogin" onclick="sendLogin()">LOGIN</button>
 			<button id="loginRegister" onclick="sendRegister()">REGISTER</button>
 
@@ -90,7 +94,9 @@
 		<br><br>
 
 		<button id="mainHelp" onclick="toggleHelp()" class="bigButton"><b>HELP</b></button>
-    <button id="testBoard" onclick="testBoard()" class="bigButton"><b>BoardTest</b></button>
+    <!--test: <input type="text" id="testB"></input><p id="testId">test</p>
+    <button id="testBoard2()" onclick="testBoard2()" class="bigButton">Testboard2</button>
+    <button id="testBoard" onclick="testBoard()" class="bigButton"><b>BoardTest</b></button>-->
 
 	</div>
 
@@ -100,22 +106,22 @@
 
 		<form id="customSize">
 		<b>Number of Players:</b> <br>
-		2 <input type="radio" name="customSize" value="2" checked="true"> &nbsp;
-		3 <input type="radio" name="customSize" value="3"> &nbsp;
-		4 <input type="radio" name="customSize" value="4"> &nbsp;
-		5 <input type="radio" name="customSize" value="5"> &nbsp;
-		6 <input type="radio" name="customSize" value="6"> 
+		2 <input type="radio" name="customSize" value="2" checked="true"> &nbsp;</input>
+		3 <input type="radio" name="customSize" value="3"> &nbsp;</input>
+		4 <input type="radio" name="customSize" value="4"> &nbsp;</input>
+		5 <input type="radio" name="customSize" value="5"> &nbsp;</input>
+		6 <input type="radio" name="customSize" value="6"> </input>
 		</form> <br> <b>Match Type</b>: <br> <form id="customType">
-		1v1 Rotations <input type="radio" name="customType" value="1v1" checked="true"> &nbsp;
-		Free for All <input type="radio" name="customType" value="ffa"> 
+		1v1 Rotations <input type="radio" name="customType" value="1v1" checked="true"> &nbsp;</input>
+		Free for All <input type="radio" name="customType" value="ffa"> </input>
 		</form> <br> <b>Number of rounds needed to win:</b> <br> <form id="customSetCount">
-		1 <input type="radio" name="customSetCount" value="1"> &nbsp;
-		2 <input type="radio" name="customSetCount" value="2" checked="true"> &nbsp;
-		3 <input type="radio" name="customSetCount" value="3"> &nbsp;
-		4 <input type="radio" name="customSetCount" value="4"> &nbsp;
+		1 <input type="radio" name="customSetCount" value="1"> &nbsp;</input>
+		2 <input type="radio" name="customSetCount" value="2" checked="true"> &nbsp;</input>
+		3 <input type="radio" name="customSetCount" value="3"> &nbsp;</input>
+		4 <input type="radio" name="customSetCount" value="4"> &nbsp;</input>
 		</form> <br> <br>
 
-		<button id="customCreate" onclick="gameCreate()" class="bigButton"><b>CREATE</b></button>
+		<button id="customCreate" onclick="createGame()" class="bigButton"><b>CREATE</b></button>
 		<button id="customBack" onclick="toggleCustom()" class="bigButton"><b>BACK</b></button>
 	</div>
 
@@ -133,6 +139,60 @@
 	</div>
 	<br> <br> <br> <p>
    </div>
+
+   <div id="basicGame" style="display:none">
+
+     <center><h1>Flip a coin and guess the side it lands on</h1></center>
+       <br>
+       <div>
+         <center>
+         <img id="headCoin" src="heads.jpg" onclick="flipCoin()"/>
+         <img id="tailCoin" src="tails.jpg" onclick="flipCoin()"style="display:none">
+         </center>
+       </div>
+       <br>
+       <div>
+         <center>
+         <button type="button" style="padding:10px;width:90px;height:40px;" onclick="pickHeads()">Heads</button>
+         &nbsp;&nbsp;&nbsp;
+         <button type="button" style="padding:10px;width:90px;height:40px;" onclick="pickTails()">Tails</button>
+         </center>
+       </div>
+       <br>
+       <center>
+         <h3 id="guessText" style="display:none"> Your current guess is ..</h3>
+       </center>
+
+   </div>
+
+   <div id="loseAI" style="display:none">
+     <center>
+     <h1> You lost because you're bad at guessing, get rekt nerd</h1>
+       <br>
+
+       <button type="button" style="padding:10px;width:100px;height:50px;" onclick="playAgainAiLose()">Play Again?</button>
+       &nbsp;&nbsp;&nbsp;
+       <button type="button" style="padding:10px;width:100px;height:50px;" onclick="goHomeAiLose()">Back</button>
+
+     </center>
+   </div>
+
+   <div id="winAI" style="display:none">
+     <center>
+     <h1> You won because you're good at guessing, great job</h1>
+       <br>
+
+       <button type="button" style="padding:10px;width:100px;height:50px;" onclick="playAgainAiWin()">Play Again?</button>
+       &nbsp;&nbsp;&nbsp;
+       <button type="button" style="padding:10px;width:100px;height:50px;" onclick="goHomeAiWin()">Back</button>
+
+     </center>
+   </div>
+
+
+
+
+
 
 
    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
@@ -152,7 +212,8 @@
     <script src="logger.js"></script>
     <script src="AI.js"></script>
     <script src="leaderboard.js"></script>
-	<script src="redirect.js"></script>
+
+
 
     <script>
 
@@ -169,6 +230,7 @@
 
 	}
 
+
 	function hideSub() {
 		var x = document.getElementById("play")
 		if (x.style.display == "block") {
@@ -184,6 +246,42 @@
 		}
 	}
 
+  function goHomeAiWin(){
+    showHide("main");
+    showHide("titleMain");
+    toggleWinAI();
+    showHide("basicGame");
+    showHide("quarterIMG");
+  }
+  function goHomeAiLose(){
+    showHide("main");
+    showHide("titleMain");
+    toggleLoseAI();
+    showHide("basicGame");
+    showHide("quarterIMG");
+  }
+  function playAgainAiWin(){
+    toggleWinAI();
+  }
+  function playAgainAiLose(){
+    toggleLoseAI();
+  }
+  function toggleWinAI(){
+      showHide("basicGame");
+      showHide("winAI");
+  }
+
+  function toggleLoseAI(){
+    showHide("basicGame");
+    showHide("loseAI");
+  }
+
+  function toggleGame(){
+    showHide("main");
+    showHide("titleMain");
+    showHide("quarterIMG");
+    showHide("basicGame");
+  }
 
 	function toggleHelp() {
 		showHide("main");
@@ -205,31 +303,33 @@
 		showHide("titleMain");
 		showHide("titleLeader");
 	}
-	
-	var database = firebase.database();
-	
-	function gameMatch() {
-		ref = firebase.database().ref("/queue");
-		/*ref.push().set({
-			name: firebase.auth().currentUser.userID
-		});*/
-		//check the queue for others waiting
-		
-		firebase.database().ref().child("queue/"+uID).set();
-		playHuman();
-	}
 
-	function gameCreate() {
-		var p1 = firebase.auth().currentUser;
-		var p2 = 
-		var currentGame = {
-		    player1: p1,
-			player2: p2
+	function createGame() {
+		var a = document.getElementById("customSize")
+		var b = document.getElementById("customType")
+		var c = document.getElementById("customSetCount")
+		for (i = "0"; i < a.elements.length; i++){
+			if (a.elements[i].checked){
+				a = a.elements[i].value;
+				break;
+			}
 		}
-		
+		for (i = "0"; i < b.elements.length; i++){
+			if (b.elements[i].checked){
+				b = b.elements[i].value;
+				break;
+			}
+		}
+		for (i = "0"; i < c.elements.length; i++){
+			if (c.elements[i].checked){
+				c = c.elements[i].value;
+				break;
+			}
+		}
+		alert(a + " player lobby, " + b + " game, first to " + c)
 	}
 
-	function gameJoin(){
+	function tryJoin(){
 		var x = document.getElementById("joinKey");
 		if (x.value == ""){
 			showError(joinNoKey);
