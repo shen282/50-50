@@ -1,0 +1,18 @@
+html, body {
+  height: 100%;
+}
+
+.arrangeTop {
+  margin-bottom: -20px
+}
+table {
+  width: 400px
+
+}
+th {
+  text-align: left;
+}
+table, th, td {
+  border: 1px solid #000;
+  border-collapse: collapse;
+}
