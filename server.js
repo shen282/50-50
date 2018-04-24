@@ -23,8 +23,6 @@ var serve = http.createServer(function(req, resp){
     }
     myReadStream.pipe(resp);
 
-
-
 });
 
 serve.listen(2050, '127.0.0.1');

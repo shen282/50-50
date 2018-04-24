@@ -2,6 +2,8 @@ var guess=100;
 //1 = heads, 0 = tails
 var readyState=0;
 //1 = Ready, 0 = Not ready
+//var gameKEY = this.uID.gameKey;
+//var currentPlayer = uID;
 
 function playHuman(){
   //redirect to gameGUI
@@ -10,7 +12,7 @@ function playHuman(){
 
 function ready(){
   //flips coin, if the user has not guessed, request they guess first
-  if(guess==100){
+  if (guess==100){
     guessPls();
     return;
   }
@@ -85,9 +87,9 @@ function reset(){
 	resetTimer();
 }
 
-function sendReady(){
-	
-}
+/*function sendReady(){
+	//alert 
+}*/
 
 var turnTimer = new Date().getTime()+16000;
 resetTimer();
@@ -96,7 +98,7 @@ resetTimer();
 function resetTimer(){
 	turnTimer = new Date().getTime()+16000;
 	var timerObject = document.getElementById("timer");
-	var x = setInterval(function() {
+	var t = setInterval(function() {
 	  
 		var currentTime = new Date().getTime()
 		var distance = turnTimer - currentTime;
@@ -109,20 +111,49 @@ function resetTimer(){
 		}
 		timerObject.innerHTML = seconds + "s ";
 	    if (distance < 1000) {
-			clearInterval(x);
+			clearInterval(t);
 			timerObject.innerHTML = "TIME UP";
 			if (readyState == "0"){
 				forfeit();
+			} else {
+				//sendReady(userID, gameKey, guess);
 			}
 	    }		
 	  });
 }
 	  
 function stopTimer(){
-	clearInterval(x);
+	clearInterval(t);
 }
 
 function forfeit(){
+	//tell the server it was a forfeit
 	alert("You ran out of time!");
 	window.location.href="main.html"
 }
+/*
+//don't know where to put this stuff to make it work
+export class Game {
+gamekey: string;
+p1ID: string;
+p2ID: string;
+p1choice; (100, 1, 2) : (Undecided, Heads, Tails)
+p2choice; ...
+currentOutcome = ;
+//record outcome onto player's records
+}
+
+createGame(game: Game, p1userID: int, p2userID: int){
+	Game.gamekey = keyGen();
+	firebase.database().ref().child("Games/").push(Game)
+	Game.p1ID = p1userID;
+	firebase.database().ref().child("users/"+p1userID).set({gameKey: Game.gamekey})
+	Game.p2ID = p2userID;
+	firebase.database().ref().child("users/"+p2userID).set({gameKey: Game.gamekey})
+}
+
+sendReady(userID, gameKey, guess){
+	//pass in user ID
+	var game = firebase.database().ref().child("games/"+gameKey)
+	firebase.database().ref().child("users/"+uID).set({wins: wins+1});
+}*/
