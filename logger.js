@@ -1,5 +1,5 @@
-
-
+var uID;
+var email;
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
@@ -8,8 +8,11 @@ firebase.auth().onAuthStateChanged(function(user) {
     document.getElementById("mainLogin").style.display = "none";
     var user = firebase.auth().currentUser;
     if(user != null){
-      var email = user.email;
+      email = user.email;
+      uID = user.uid;
+      document.cookie = "userID=" + uID;
       document.getElementById("signInText").innerHTML = "Signed in as: " + email;
+      initializeScore();
     }
   } else {
     // No user is signed in.
@@ -18,35 +21,15 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-function matchRegular(){
-  //window.alert("button check");
-}
+function initializeScore(){ //if user does not currently have a score, initialize it
+  //window.alert("in");
+  //var refCheck = firebase.database().ref("users/"+uID+"/score");
+  firebase.database().ref("users/"+uID+"/score").once('value').then(function(snapshot) {
+    if(snapshot.val() == null){
+      firebase.database().ref().child("users/"+uID).set({score: 100});
+    }
+    //window.alert(dat);
+  });
 
-function sendLogin(){
-  var userName1 = document.getElementById("loginUsername").value;
-  var password1 = document.getElementById("loginPassword").value;
-  //window.alert(userName1 + " " + password1);
-  firebase.auth().signInWithEmailAndPassword(userName1, password1).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  window.alert("Error: " + errorMessage);
-  // ...
-});
-}
-
-function signOff(){
-   firebase.auth().signOut();
-}
-
-function sendRegister(){
-  var userName1 = document.getElementById("loginUsername").value;
-  var password1 = document.getElementById("loginPassword").value;
-  firebase.auth().createUserWithEmailAndPassword(userName1, password1).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  window.alert("Error: " + errorMessage);
-  // ...
-});
+  //window.alert(uID)
 }
