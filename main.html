@@ -14,9 +14,6 @@
 
 	.bigButton {
 		font-size: medium;
-		padding:10px;
-		width:150px;
-		height:50px
 	}
 
 	.mainWindow {
@@ -56,7 +53,8 @@
 		    <button id="playRegular" onclick="matchRegular()">REGULAR MATCH</button>
 			<button id="playCreate" onclick="toggleCustom()">CREATE CUSTOM MATCH</button>
 			<button id="playJoin" onclick="showHide('join')">JOIN CUSTOM MATCH</button>
-			<div id="join" style="display:none"> <br> Match Key: <input type="text" id="joinKey"></input> <button onclick="gameJoin()">JOIN</button></div>
+      <button id="playAI" onclick="playAi()">PLAY AI</button>
+			<div id="join" style="display:none"> <br> Match Key: <input type="text" id="joinKey"></input> <button onclick="tryJoin()">JOIN</button></div>
 		</div>
 		<br>
 
@@ -85,6 +83,7 @@
 		<br><br>
 
 		<button id="mainHelp" onclick="toggleHelp()" class="bigButton"><b>HELP</b></button>
+    <button id="testBoard" onclick="testBoard()" class="bigButton"><b>BoardTest</b></button>
 
 	</div>
 
@@ -123,6 +122,7 @@
 		Flip coins
 		<br><br>
 		<button id="helpBack" onclick="toggleHelp()" class="bigButton"><b>BACK</b></button>
+
 	</div>
 	<br> <br> <br> <p>
    </div>
@@ -143,6 +143,8 @@
    </script>
 
     <script src="logger.js"></script>
+    <script src="AI.js"></script>
+    <script src="leaderboard.js"></script>
 
     <script>
 
@@ -221,7 +223,7 @@
 		alert(a + " player lobby, " + b + " game, first to " + c)
 	}
 
-	function gameJoin(){
+	function tryJoin(){
 		var x = document.getElementById("joinKey");
 		if (x.value == ""){
 			showError(joinNoKey);
