@@ -79,7 +79,7 @@
 			<br>
 			&nbsp; Password: <input type="password" id="loginPassword">
 			<br>
-      <br>
+        <br>
 			<button id="loginLogin" onclick="sendLogin()">LOGIN</button>
 			<button id="loginRegister" onclick="sendRegister()">REGISTER</button>
 
@@ -209,39 +209,24 @@
 	var database = firebase.database();
 	
 	function gameMatch() {
-		/*ref = firebase.database().ref("/queue");
-		ref.push().set({
+		ref = firebase.database().ref("/queue");
+		/*ref.push().set({
 			name: firebase.auth().currentUser.userID
 		});*/
 		//check the queue for others waiting
 		
-		firebase.database().ref().child("users/"+uID).set();
+		firebase.database().ref().child("queue/"+uID).set();
 		playHuman();
 	}
 
 	function gameCreate() {
-		var a = document.getElementById("customSize")
-		var b = document.getElementById("customType")
-		var c = document.getElementById("customSetCount")
-		for (i = "0"; i < a.elements.length; i++){
-			if (a.elements[i].checked){
-				a = a.elements[i].value;
-				break;
-			}
+		var p1 = firebase.auth().currentUser;
+		var p2 = 
+		var currentGame = {
+		    player1: p1,
+			player2: p2
 		}
-		for (i = "0"; i < b.elements.length; i++){
-			if (b.elements[i].checked){
-				b = b.elements[i].value;
-				break;
-			}
-		}
-		for (i = "0"; i < c.elements.length; i++){
-			if (c.elements[i].checked){
-				c = c.elements[i].value;
-				break;
-			}
-		}
-		alert(a + " player lobby, " + b + " game, first to " + c)
+		
 	}
 
 	function gameJoin(){

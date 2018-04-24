@@ -30,21 +30,7 @@ function handle() {
   
   //winner is chosen when one person guesses correctly and the other guesses incorrectly, if both are wrong/right they guess again;
 
-  if(outcome == 1){ //both guess correctly
-    document.getElementById("guessText").style.display="block";
-    document.getElementById("guessText").innerHTML="You guessed correctly, but your opponent did too. Guess again";
-	reset();
-  }else if(outcome == 2){ //user guesses correctly opponent does not
-    window.location.href="youWin.html";
-	stopTimer();
-  }else if(outcome == 3){ //user guesses incorrectly opponent does not
-    window.location.href="youLose.html";
-	stopTimer();
-  }else{ //neither guess correctly
-    document.getElementById("guessText").style.display="block";
-    document.getElementById("guessText").innerHTML="Neither of you guessed correctly. Guess again";
-	reset();
-  }
+
 }
 
 //request user guesses heads or tails
@@ -139,23 +125,44 @@ export class Game {
 gamekey: string;
 p1ID: string;
 p2ID: string;
-p1choice; (100, 1, 2) : (Undecided, Heads, Tails)
+p1choice; (100, 1, 0) : (Undecided, Heads, Tails)
 p2choice; ...
+p1score;
+p2score;
 currentOutcome = ;
 //record outcome onto player's records
 }
 
 createGame(game: Game, p1userID: int, p2userID: int){
-	Game.gamekey = keyGen();
-	firebase.database().ref().child("Games/").push(Game)
 	Game.p1ID = p1userID;
-	firebase.database().ref().child("users/"+p1userID).set({gameKey: Game.gamekey})
 	Game.p2ID = p2userID;
-	firebase.database().ref().child("users/"+p2userID).set({gameKey: Game.gamekey})
+	firebase.database().ref().child("Games/").push(Game)
 }
+var commentsRef = firebase.database().ref('post-comments/' + postId);
+commentsRef.on('child_added', function(data) {
+  addCommentElement(postElement, data.key, data.val().text, data.val().author);
+});
 
 sendReady(userID, gameKey, guess){
 	//pass in user ID
 	var game = firebase.database().ref().child("games/"+gameKey)
-	firebase.database().ref().child("users/"+uID).set({wins: wins+1});
+	if (game.p1ID == userID) {
+		game.p1choice = guess;
+	} else {
+		game.p2choice = guess;
+	}
+	game.currentOutcome=(Math.floor(Math.random() * 2) == 0);
+	
+	if()
+  }else if(outcome == 2){ //user guesses correctly opponent does not
+    window.location.href="youWin.html";
+	stopTimer();
+  }else if(outcome == 3){ //user guesses incorrectly opponent does not
+    window.location.href="youLose.html";
+	stopTimer();
+  }else{ //neither guess correctly
+    document.getElementById("guessText").style.display="block";
+    document.getElementById("guessText").innerHTML="Neither of you guessed correctly. Guess again";
+	reset();
+  }
 }*/
