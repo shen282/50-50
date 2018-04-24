@@ -22,8 +22,9 @@
 	.mainWindow {
 		border: 2 solid black;
 		background-color: white;
-		margin-left: auto;
-		margin-right: auto;
+		width: 800px;
+		min-height: 700px;
+		margin:auto;
 		min-height:100%;
 	}
   .button {
@@ -49,7 +50,7 @@
 
   <body style="min-height:100%;background-color:grey">
    <div id="window" align="center" class="mainWindow"> <p>
-
+   
 	<!-- Titles -->
     <div id="titleMain" class="title" align="center"><b>FIFTY-FIFTY</b></div>
 	<div id="titleCustom" style="display:none" class="title" align="center"><b>CUSTOM GAME</b></div>
@@ -134,17 +135,19 @@
 	</div>
 
 	<div id="help" style="display:none" align="center">
-		Flip coins
+		Bet on which side a coin will land on. <br>Make your bet, Heads or Tails, and then click on the coin to flip it.
 		<br><br>
 		<button id="helpBack" onclick="toggleHelp()" class="bigButton"><b>BACK</b></button>
 
 	</div>
 	<br> <br> <br> <p>
+	
    </div>
-
+   </div>
+   <div id="windowGame" align="center" style="display:none" class="mainWindow"> <p>
    <div id="basicGame" style="display:none">
 
-     <center><h1>Flip a coin and guess the side it lands on</h1></center>
+     <center><h1>Flip a coin and guess the side it lands on <br> </h1></center>
        <br>
        <div>
          <center>
@@ -169,7 +172,7 @@
 
    <div id="loseAI" style="display:none">
      <center>
-     <h1> You lost because you're bad at guessing, get rekt nerd</h1>
+     <h1> Sorry! You lost.</h1>
        <br>
 
        <button type="button" style="padding:10px;width:100px;height:50px;" onclick="playAgainAiLose()">Play Again?</button>
@@ -181,7 +184,7 @@
 
    <div id="winAI" style="display:none">
      <center>
-     <h1> You won because you're good at guessing, great job</h1>
+     <h1> Congratulations! You won!</h1>
        <br>
 
        <button type="button" style="padding:10px;width:100px;height:50px;" onclick="playAgainAiWin()">Play Again?</button>
@@ -189,10 +192,11 @@
        <button type="button" style="padding:10px;width:100px;height:50px;" onclick="goHomeAiWin()">Back</button>
 
      </center>
+	 </div>
    </div>
 
-
-
+	
+	<footer> <a href="https://github.com/shen282/50-50">Github</a> </footer>
 
 
 
@@ -283,6 +287,8 @@
     showHide("titleMain");
     showHide("quarterIMG");
     showHide("basicGame");
+	showHide("windowGame");
+	showHide("window");
   }
 
 	function toggleHelp() {
@@ -342,6 +348,6 @@
 	}
     </script>
 	<br>
-	<footer> <a href="https://github.com/shen282/50-50">Github</a> </footer>
+
   </body>
 </html>
