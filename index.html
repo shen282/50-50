@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 	<!--<script src="Node.js"></script>-->
 	<!--<script src=".js"></script>-->
     <title>Fifty-Fifty</title>
@@ -14,17 +15,14 @@
 
 	.bigButton {
 		font-size: medium;
-		padding:10px;
-		width:150px;
-		height:50px;
 	}
 
 	.mainWindow {
 		border: 2 solid black;
 		background-color: white;
-		width: 800px;
-		min-height: 700px;
-		margin:auto;
+    width: 800px;
+    min-height: 700px;
+    margin:auto;
 		min-height:100%;
 	}
   .button {
@@ -50,13 +48,106 @@
 
   <body style="min-height:100%;background-color:grey">
    <div id="window" align="center" class="mainWindow"> <p>
-   
+
 	<!-- Titles -->
     <div id="titleMain" class="title" align="center"><b>FIFTY-FIFTY</b></div>
 	<div id="titleCustom" style="display:none" class="title" align="center"><b>CUSTOM GAME</b></div>
-	<div id="titleLeader" style="display:none" class="title" align="center"><b>LEADERBOARD</b></div>
+	<div id="titleLeader" style="display:none" class="title" align="center"><b>LEADER BOARD</b></div>
 	<div id="titleHelp" style="display:none" class="title" align="center"><b>HELP</b></div>
 	<br> <img id="quarterIMG" src="Quarter.jpg" alt="Quarter" height="100" width="100"></img><br> <br> <br>
+
+  <div id="loseAI" style="display:none" class="arrangeTop">
+    <center>
+    <h1> Sorry! Your opponent guess correctly and you did not.</h1>
+      <br>
+
+      <button type="button" style="padding:10px;width:100px;height:50px;" onclick="playAgainAiLose()">Play Again?</button>
+      &nbsp;&nbsp;&nbsp;
+      <button type="button" style="padding:10px;width:100px;height:50px;" onclick="goHomeAiLose()">Back</button>
+
+    </center>
+  </div>
+
+  <div id="winAI" style="display:none" class="arrangeTop">
+    <center>
+    <h1> Congrats! You won! </h1>
+      <br>
+
+      <button type="button" style="padding:10px;width:100px;height:50px;" onclick="playAgainAiWin()">Play Again?</button>
+      &nbsp;&nbsp;&nbsp;
+      <button type="button" style="padding:10px;width:100px;height:50px;" onclick="goHomeAiWin()">Back</button>
+
+    </center>
+  </div>
+  <div id="basicGame" style="display:none">
+
+    <center><h1>Flip a coin and guess the side it lands on</h1></center>
+      <br>
+      <div>
+        <center>
+        <img id="headCoin" src="heads.jpg" onclick="flipCoin()"/>
+        <img id="tailCoin" src="tails.jpg" onclick="flipCoin()"style="display:none">
+        </center>
+      </div>
+      <br>
+      <div>
+        <center>
+        <button type="button" style="padding:10px;width:90px;height:40px;" onclick="pickHeads()">Heads</button>
+        &nbsp;&nbsp;&nbsp;
+        <button type="button" style="padding:10px;width:90px;height:40px;" onclick="pickTails()">Tails</button>
+        </center>
+      </div>
+      <br>
+      <center>
+        <h3 id="guessText" style="display:none"> Your current guess is ..</h3>
+      </center>
+
+  </div>
+
+
+
+  <div id="leaderBoardAi" style="display:none">
+
+    <center>
+      <h3>AI LeaderBoard</h3>
+      <table>
+        <tr>
+            <th>User</th>
+            <th>Score</th>
+          </tr>
+          <tr>
+            <td id="name1">Joe1</td>
+            <td id="score1">10</td>
+          </tr>
+          <tr>
+            <td id="name2">Joe2</td>
+            <td id="score2">15</td>
+          </tr>
+          <tr>
+            <td id="name3">Joe3</td>
+            <td id="score3">20</td>
+          </tr>
+          <tr>
+            <td id="name4">Joe4</td>
+            <td id="score4">25</td>
+          </tr>
+          <tr>
+            <td id="name5">Joe5</td>
+            <td id="score5">30</td>
+          </tr>
+          <tr>
+            <td id="name6">Joe6</td>
+            <td id="score6">235</td>
+          </tr>
+          <tr>
+            <td id="name7">Joe7</td>
+            <td id="score7">10</td>
+          </tr>
+
+      </table>
+    </center>
+
+  </div>
 
 	<!-- Main Menu Panel -->
 	<div id="main" align="center">
@@ -68,10 +159,11 @@
 		    <button id="playRegular" onclick="matchRegular()">REGULAR MATCH</button>
 			<button id="playCreate" onclick="toggleCustom()">CREATE CUSTOM MATCH</button>
 			<button id="playJoin" onclick="showHide('join')">JOIN CUSTOM MATCH</button>
+      <button id="playAI" onclick="toggleGame()">PLAY AI</button>
 			<div id="join" style="display:none"> <br> Match Key: <input type="text" id="joinKey"></input> <button onclick="tryJoin()">JOIN</button></div>
 		</div>
 		<br>
-		<button id="playAI" onclick="toggleGame()" class="bigButton"><b>PRACTICE</b></button> <br> <br>
+
 		<button id="mainLogin" onclick="showHide('login')" class="bigButton"><b>SIGN IN</b></button>
 
 
@@ -94,6 +186,7 @@
 		<br>
 
 		<button id="mainLeaderboard" onclick="toggleLeaderboard()" class="bigButton"><b>LEADERBOARD</b></button>
+
 		<br><br>
 
 		<button id="mainHelp" onclick="toggleHelp()" class="bigButton"><b>HELP</b></button>
@@ -129,7 +222,12 @@
 	</div>
 
 	<div id="leaderboard" style="display:none" align="center">
-		filltext
+    <br>
+    <br>
+    <button id="leaderBoardAiBtn" onclick="toggleAiLeaderboard()" class="bigButton"><b>AI LEADERBOARD</b></button>
+    <br>
+    <br>
+    <button id="leaderBoardPVPBtn" onclick="togglePVPLeaderboard()" class="bigButton"><b>PVP LEADERBOARD</b></button>
 		<br><br>
 		<button id="leaderBack" onclick="toggleLeaderboard()" class="bigButton"><b>BACK</b></button>
 	</div>
@@ -141,62 +239,14 @@
 
 	</div>
 	<br> <br> <br> <p>
-	
-   </div>
-   </div>
-   <div id="windowGame" align="center" style="display:none" class="mainWindow"> <p>
-   <div id="basicGame" style="display:none">
-
-     <center><h1>Flip a coin and guess the side it lands on <br> </h1></center>
-       <br>
-       <div>
-         <center>
-         <img id="headCoin" src="heads.jpg" onclick="flipCoin()"/>
-         <img id="tailCoin" src="tails.jpg" onclick="flipCoin()"style="display:none">
-         </center>
-       </div>
-       <br>
-       <div>
-         <center>
-         <button type="button" style="padding:10px;width:90px;height:40px;" onclick="pickHeads()">Heads</button>
-         &nbsp;&nbsp;&nbsp;
-         <button type="button" style="padding:10px;width:90px;height:40px;" onclick="pickTails()">Tails</button>
-         </center>
-       </div>
-       <br>
-       <center>
-         <h3 id="guessText" style="display:none"> Your current guess is ..</h3>
-       </center>
-
    </div>
 
-   <div id="loseAI" style="display:none">
-     <center>
-     <h1> Sorry! You lost.</h1>
-       <br>
 
-       <button type="button" style="padding:10px;width:100px;height:50px;" onclick="playAgainAiLose()">Play Again?</button>
-       &nbsp;&nbsp;&nbsp;
-       <button type="button" style="padding:10px;width:100px;height:50px;" onclick="goHomeAiLose()">Back</button>
 
-     </center>
-   </div>
 
-   <div id="winAI" style="display:none">
-     <center>
-     <h1> Congratulations! You won!</h1>
-       <br>
 
-       <button type="button" style="padding:10px;width:100px;height:50px;" onclick="playAgainAiWin()">Play Again?</button>
-       &nbsp;&nbsp;&nbsp;
-       <button type="button" style="padding:10px;width:100px;height:50px;" onclick="goHomeAiWin()">Back</button>
 
-     </center>
-	 </div>
-   </div>
 
-	
-	<footer> <a href="https://github.com/shen282/50-50">Github</a> </footer>
 
 
 
@@ -251,6 +301,10 @@
 			x.style.display = "none";
 		}
 	}
+  function toggleAiLeaderboard(){
+    showHide("leaderBoardAi");
+    showHide("leaderBoardPVPBtn");
+  }
 
   function goHomeAiWin(){
     showHide("main");
@@ -287,8 +341,6 @@
     showHide("titleMain");
     showHide("quarterIMG");
     showHide("basicGame");
-	showHide("windowGame");
-	showHide("window");
   }
 
 	function toggleHelp() {
@@ -306,10 +358,14 @@
 	}
 
 	function toggleLeaderboard() {
+    updateleaderAI();
 		showHide("main");
 		showHide("leaderboard");
 		showHide("titleMain");
 		showHide("titleLeader");
+    var t = document.getElementById("leaderBoardAi");
+    t.style.display = "none";
+
 	}
 
 	function createGame() {
@@ -348,6 +404,6 @@
 	}
     </script>
 	<br>
-
+	<footer> <a href="https://github.com/shen282/50-50">Github</a> </footer>
   </body>
 </html>
