@@ -29,6 +29,7 @@ function flipCoin(){
   if(x==guess && y==1){ //both guess correctly
     document.getElementById("guessText").style.display="block";
     document.getElementById("guessText").innerHTML="You guessed correctly, but your opponent did too. Guess again";
+	guess=100;
   }else if(x==guess && y==0){ //user guesses correctly AI does not
     window.location.href="youWin.html";
   }else if(x != guess && y==1){ //user guesses incorrectly AI does not
@@ -36,6 +37,7 @@ function flipCoin(){
   }else{ //neither guess correctly
     document.getElementById("guessText").style.display="block";
     document.getElementById("guessText").innerHTML="Neither of you guessed correctly. Guess again";
+	guess=100;
   }
 }
 
